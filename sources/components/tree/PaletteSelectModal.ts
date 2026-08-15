@@ -11,6 +11,7 @@ import type {
 import { renderResult } from "../../utils/render-result.ts";
 import { state, getSelectionGroup } from "../../state/state.ts";
 import { ucwords } from "../../utils/helpers.ts";
+import { translateText } from "../../utils/zh-translations.ts";
 import { COMPACT_FRAME_SIZE, FRAME_SIZE } from "../../state/constants.ts";
 import {
   compilePaletteKey,
@@ -149,7 +150,7 @@ function renderModal(
       },
       [
         m("header.is-flex", [
-          m("h4", opt.label),
+          m("h4", translateText(opt.label)),
           m("button", { onclick: onClose }, "x"),
         ]),
         m("section", [
@@ -184,10 +185,12 @@ function renderModal(
                     }),
                     m(
                       "span.palette-version",
-                      paletteVersionMeta?.label +
-                        (material !== opt.material
-                          ? ` - ${materialMeta?.label}`
-                          : ""),
+                      translateText(
+                        paletteVersionMeta?.label +
+                          (material !== opt.material
+                            ? ` - ${materialMeta?.label}`
+                            : ""),
+                      ),
                     ),
                   ],
                 ),
@@ -238,7 +241,9 @@ function renderModal(
                             [
                               m(
                                 "span.variant-display-name.has-text-centered.is-size-7",
-                                ucwords(palette.replaceAll("_", " ")),
+                                translateText(
+                                  ucwords(palette.replaceAll("_", " ")),
+                                ),
                               ),
                               m("canvas.variant-canvas.box.p-0", {
                                 width: compactDisplay

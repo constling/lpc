@@ -115,8 +115,8 @@ describe("ItemWithVariants", function () {
     );
 
     assert.strictEqual(host.querySelectorAll(".variant-item").length, 2);
-    assert.ok(host.textContent.includes("Dark blue"));
-    assert.ok(host.textContent.includes("Red"));
+    assert.ok(host.textContent.includes("深蓝"));
+    assert.ok(host.textContent.includes("红"));
   });
 
   // TODO (unimplemented): Enable when the category row reliably receives clicks after variant

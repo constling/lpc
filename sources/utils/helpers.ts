@@ -1,5 +1,6 @@
 // Pure utility functions with minimal catalog reads for tree search
 import type { CatalogReader, CategoryTreeNode } from "../state/catalog.ts";
+import { translateText } from "./zh-translations.ts";
 
 /**
  * Simple ES6 template string replacement
@@ -37,7 +38,11 @@ export function ucwords(str: string): string {
 
 export function matchesSearch(text: string, query: string): boolean {
   if (!query || query.length < 2) return true;
-  return text.toLowerCase().includes(query.toLowerCase());
+  const q = query.toLowerCase();
+  return (
+    text.toLowerCase().includes(q) ||
+    translateText(text).toLowerCase().includes(q)
+  );
 }
 
 export function nodeHasMatches(

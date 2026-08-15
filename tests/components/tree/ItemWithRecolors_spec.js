@@ -149,7 +149,7 @@ describe("ItemWithRecolors", function () {
     m.render(host, m(ItemWithRecolors, baseAttrs(meta)));
 
     assert.ok(host.querySelector(".palette-recolor-list"));
-    assert.ok(host.textContent.includes("Cloth"));
+    assert.ok(host.textContent.includes("布料"));
     assert.strictEqual(
       host.querySelectorAll(".palette-recolor-item").length,
       1,

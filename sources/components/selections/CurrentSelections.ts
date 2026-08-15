@@ -6,6 +6,7 @@ import {
   isItemLicenseCompatible,
   isItemAnimationCompatible,
 } from "../../state/filters.ts";
+import { translateText } from "../../utils/zh-translations.ts";
 
 type CurrentSelectionsAttrs = {
   catalog: CatalogReader;
@@ -86,7 +87,7 @@ export const CurrentSelections: m.Component<CurrentSelectionsAttrs> = {
               title: creditsReady ? tooltipText : undefined,
             },
             [
-              m("span", selection.name),
+              m("span", translateText(selection.name)),
               !isCompatible ? m("span.ml-1", "⚠️") : null,
               m("button.delete.is-small", {
                 onclick: () => {

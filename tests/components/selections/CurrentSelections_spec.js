@@ -97,7 +97,7 @@ describe("CurrentSelections", function () {
     assert.strictEqual(tags.length, 2);
 
     assert.include(host.textContent, "Test Hat (blue)");
-    assert.include(host.textContent, "Winter Coat (long)");
+    assert.include(host.textContent, "冬外套(长)");
 
     const hatTag = [...host.querySelectorAll("span.tag.is-medium")].find((el) =>
       el.textContent.includes("Test Hat"),

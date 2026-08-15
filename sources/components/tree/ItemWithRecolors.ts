@@ -7,6 +7,7 @@ import { drawRecolorPreview } from "../../canvas/palette-recolor.ts";
 import { getPaletteOptions } from "../../state/palettes.ts";
 import { PaletteSelectModal } from "./PaletteSelectModal.ts";
 import { COMPACT_FRAME_SIZE, FRAME_SIZE } from "../../state/constants.ts";
+import { translateText } from "../../utils/zh-translations.ts";
 
 export type ItemWithRecolorsAttrs = {
   itemId: string;
@@ -46,10 +47,10 @@ export const ItemWithRecolors: m.Component<
     } = vnode.attrs;
     const rowTitle = showItemTooltips ? tooltipText : undefined;
     const compactDisplay = state.compactDisplay;
-    const displayName = meta.name;
+    const displayName = translateText(meta.name);
     const rootViewNode = vnode;
     let nodePath = itemId;
-    if (displayName === "Body Color") {
+    if (meta.name === "Body Color") {
       nodePath = "body-body";
     }
 
@@ -214,7 +215,7 @@ export const ItemWithRecolors: m.Component<
                               },
                             },
                             [
-                              m("label", opt.label),
+                              m("label", translateText(opt.label)),
                               m(
                                 "div.palette-swatch",
                                 gradient.map((color) =>
@@ -343,7 +344,7 @@ export const ItemWithRecolors: m.Component<
                                 },
                               },
                               [
-                                m("label", opt.label),
+                                m("label", translateText(opt.label)),
                                 m(
                                   "div.palette-swatch",
                                   gradient.map((color) =>

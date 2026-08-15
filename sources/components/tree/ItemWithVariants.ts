@@ -6,6 +6,7 @@ import { getLayersToLoad } from "../../state/meta.ts";
 import type { LayerToLoad } from "../../state/meta.ts";
 import { COMPACT_FRAME_SIZE, FRAME_SIZE } from "../../state/constants.ts";
 import { capitalize } from "../../utils/helpers.ts";
+import { translateText } from "../../utils/zh-translations.ts";
 import type { CatalogReader, ItemMerged } from "../../state/catalog.ts";
 
 export type ItemWithVariantsAttrs = {
@@ -44,10 +45,10 @@ export const ItemWithVariants: m.Component<
     } = vnode.attrs;
     const rowTitle = showItemTooltips ? tooltipText : undefined;
     const compactDisplay = state.compactDisplay;
-    const displayName = meta.name;
+    const displayName = translateText(meta.name);
     const rootViewNode = vnode;
     let nodePath = itemId;
-    if (displayName === "Body Color") {
+    if (meta.name === "Body Color") {
       nodePath = "body-body";
     }
     const isExpanded = state.expandedNodes[nodePath] || false;
@@ -116,7 +117,9 @@ export const ItemWithVariants: m.Component<
                   const isSelected =
                     state.selections[selectionGroup]?.itemId === itemId &&
                     state.selections[selectionGroup]?.variant === variant;
-                  const variantDisplayName = variant.replaceAll("_", " ");
+                  const variantDisplayName = translateText(
+                    capitalize(variant.replaceAll("_", " ")),
+                  );
 
                   // Get preview metadata from item metadata
                   const previewRow = meta.preview_row ?? 2;
@@ -160,7 +163,7 @@ export const ItemWithVariants: m.Component<
                     [
                       m(
                         "span.variant-display-name.has-text-centered.is-size-7",
-                        capitalize(variantDisplayName),
+                        variantDisplayName,
                       ),
                       m("canvas.variant-canvas.box.p-0", {
                         width: compactDisplay ? COMPACT_FRAME_SIZE : FRAME_SIZE,

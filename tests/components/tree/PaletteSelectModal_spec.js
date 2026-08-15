@@ -206,7 +206,7 @@ describe("PaletteSelectModal", function () {
 
     assert.include(
       host.querySelector(".palette-modal h4")?.textContent,
-      "Cloth",
+      "布料",
     );
     assert.strictEqual(
       host.querySelectorAll(".palette-modal-version-block").length,

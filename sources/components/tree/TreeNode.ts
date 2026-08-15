@@ -17,6 +17,7 @@ import {
   matchesSearch,
   nodeHasMatches,
 } from "../../utils/helpers.ts";
+import { translateText } from "../../utils/zh-translations.ts";
 import { ItemWithVariants } from "./ItemWithVariants.ts";
 import { ItemWithRecolors } from "./ItemWithRecolors.ts";
 
@@ -52,7 +53,7 @@ function renderSkeletons(itemIds: string[]) {
 
 function renderItem(itemId: string, meta: ItemMerged, ctx: ItemListCtx) {
   const { isNodeAnimCompatible, searchQuery, catalog } = ctx;
-  const displayName = meta.name;
+  const displayName = translateText(meta.name);
   const hasVariants = meta.variants && meta.variants.length > 0;
   const hasRecolors = !hasVariants && meta.recolors && meta.recolors.length > 0;
   const isSearchMatch =
@@ -218,7 +219,7 @@ export const TreeNode: m.Component<TreeNodeAttrs> = {
       (!!searchQuery && searchQuery.length >= 2 && hasSearchMatches) ||
       state.expandedNodes[nodePath] ||
       false;
-    const displayName = node.label ?? capitalize(name);
+    const displayName = translateText(node.label ?? capitalize(name));
 
     const categoryTitle = catalog.isLiteReady() ? tooltipText : undefined;
 

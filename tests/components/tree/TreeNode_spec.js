@@ -316,7 +316,7 @@ describe("TreeNode", function () {
       }),
     );
 
-    assert.ok(host.textContent.includes("Child"));
+    assert.ok(host.textContent.includes("小孩"));
     assert.isTrue(state.expandedNodes["parent-child"]);
   });
 });

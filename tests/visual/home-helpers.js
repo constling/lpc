@@ -160,14 +160,14 @@ export async function openHumanMaleSkintonePalette(page, opts = {}) {
     await row.first().click();
   };
 
-  await clickTreeLabel("Head");
-  await clickTreeLabel("Heads");
-  await clickTreeLabel("Human Heads");
-  await clickTreeLabel("Human Male");
+  await clickTreeLabel("头部");
+  await clickTreeLabel("头");
+  await clickTreeLabel("人类头");
+  await clickTreeLabel("人类男性");
 
   const skintone = tree
     .locator(".palette-recolor-item label")
-    .filter({ hasText: /^Skintone$/ });
+    .filter({ hasText: /^肤色$/ });
   skintone.evaluate((el) => (el.style.scrollMarginTop = "-12px"));
   await skintone.scrollIntoViewIfNeeded();
   await skintone.click();
