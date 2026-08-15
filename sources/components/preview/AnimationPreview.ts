@@ -110,6 +110,22 @@ const PreviewCanvas: m.Component<PreviewCanvasAttrs, PreviewCanvasState> = {
 
 type AnimationOption = { value: string; label: string };
 
+/** Chinese display names for custom animations (fall back to the key itself). */
+const CUSTOM_ANIMATION_LABELS: Record<string, string> = {
+  wheelchair: "轮椅",
+  tool_rod: "工具杆",
+  slash_128: "挥砍 (128)",
+  backslash_128: "反挥砍 (128)",
+  halfslash_128: "半挥砍 (128)",
+  thrust_oversize: "突刺 (超尺寸)",
+  slash_oversize: "挥砍 (超尺寸)",
+  slash_reverse_oversize: "反向挥砍 (超尺寸)",
+  whip_oversize: "鞭子 (超尺寸)",
+  tool_whip: "工具鞭",
+  walk_128: "走路 (128)",
+  thrust_128: "突刺 (128)",
+};
+
 type AnimationPreviewState = {
   selectedAnimation: string;
   selectedDirection: string;
@@ -141,7 +157,9 @@ export const AnimationPreview: m.Component<
       ...ANIMATIONS,
       ...customAnims.map((anim) => ({
         value: anim,
-        label: anim.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+        label:
+          CUSTOM_ANIMATION_LABELS[anim] ??
+          anim.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
       })),
     ];
 
@@ -190,7 +208,7 @@ export const AnimationPreview: m.Component<
     return m(
       CollapsibleSection,
       {
-        title: "Animation Preview",
+        title: "动画预览",
         defaultOpen: true,
         boxClass: "box",
       },
@@ -198,9 +216,7 @@ export const AnimationPreview: m.Component<
         m("div.columns.is-multiline", [
           m("div.column", [
             m("div.field.is-horizontal.is-align-items-center", [
-              m("div.field-label.is-normal", [
-                m("label.label.mb-0", "Animation"),
-              ]),
+              m("div.field-label.is-normal", [m("label.label.mb-0", "动画")]),
               m("div.field-body", [
                 m("div.field.has-addons.mb-0", [
                   m("div.control", [
@@ -235,9 +251,7 @@ export const AnimationPreview: m.Component<
               ]),
             ]),
             m("div.field.is-horizontal.is-align-items-center.mt-2", [
-              m("div.field-label.is-normal", [
-                m("label.label.mb-0", "Direction"),
-              ]),
+              m("div.field-label.is-normal", [m("label.label.mb-0", "方向")]),
               m("div.field-body", [
                 m("div.field.has-addons.mb-0", [
                   m("div.control", [
@@ -259,7 +273,7 @@ export const AnimationPreview: m.Component<
                               disabled: !direction.available,
                               title: direction.available
                                 ? undefined
-                                : "Not available for this animation",
+                                : "此动画不提供该方向",
                             },
                             direction.label,
                           ),
@@ -273,10 +287,10 @@ export const AnimationPreview: m.Component<
                       {
                         disabled:
                           !window.canvasRenderer || state.isRenderingCharacter,
-                        title: `Download the ${vnode.state.selectedAnimation} ${selectedDirectionOption.label.toLowerCase()} spritesheet as a single-row PNG`,
+                        title: `下载 ${vnode.state.selectedAnimation} ${selectedDirectionOption.label} 方向的单行精灵表 PNG`,
                         onclick: onDownloadDirection,
                       },
-                      "Download spritesheet (PNG)",
+                      "下载精灵表 (PNG)",
                     ),
                   ]),
                 ]),
@@ -288,7 +302,7 @@ export const AnimationPreview: m.Component<
               m("div.field-label.is-normal", [
                 m(
                   "label.label.mb-0",
-                  `Zoom: ${Math.round(vnode.state.zoomLevel * 100)}%`,
+                  `缩放：${Math.round(vnode.state.zoomLevel * 100)}%`,
                 ),
               ]),
               m("div.field-body", [
@@ -328,7 +342,7 @@ export const AnimationPreview: m.Component<
                 state.isRenderingCharacter
                   ? m("div.preview-canvas-busy", { "aria-hidden": true }, [
                       m("span.loading", {
-                        "aria-label": "Rendering character",
+                        "aria-label": "正在渲染角色",
                       }),
                     ])
                   : null,

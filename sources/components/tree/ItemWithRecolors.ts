@@ -232,7 +232,7 @@ export const ItemWithRecolors: m.Component<
                     : null,
                 ],
               ),
-              m("p.is-size-7.has-text-grey.mt-2", "Loading palette data…"),
+              m("p.is-size-7.has-text-grey.mt-2", "正在加载调色板数据…"),
             ])
           : isExpanded
             ? m("div", [

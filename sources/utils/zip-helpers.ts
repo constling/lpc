@@ -571,7 +571,7 @@ type WindowWithZipDeps = Window & {
 export function guardZipExportEnvironment(): boolean {
   const w = window as WindowWithZipDeps;
   if (!w.canvasRenderer || !w.JSZip) {
-    alert("JSZip library not loaded");
+    alert("JSZip 库未加载");
     return false;
   }
   return true;

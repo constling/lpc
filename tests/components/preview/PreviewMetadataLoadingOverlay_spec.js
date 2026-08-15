@@ -75,6 +75,6 @@ describe("PreviewMetadataLoadingOverlay", function () {
 
     const text = host.querySelector(".preview-canvas-loading-text");
     assert.notEqual(text, null);
-    assert.strictEqual(text.textContent, "Loading layer data…");
+    assert.strictEqual(text.textContent, "正在加载图层数据…");
   });
 });

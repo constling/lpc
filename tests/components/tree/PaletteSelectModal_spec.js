@@ -154,7 +154,7 @@ describe("PaletteSelectModal", function () {
     m.render(host, m(PaletteSelectModal, modalAttrs()));
 
     assert.strictEqual(isPaletteReady(), false);
-    assert.include(host.textContent, "Loading palette data…");
+    assert.include(host.textContent, "正在加载调色板数据…");
     assert.notEqual(host.querySelector(".palette-modal-overlay"), null);
     assert.strictEqual(
       host.querySelector(".palette-modal")?.getAttribute("data-previews-ready"),
@@ -187,7 +187,7 @@ describe("PaletteSelectModal", function () {
 
     m.render(host, m(PaletteSelectModal, modalAttrs()));
 
-    assert.include(host.textContent, "Loading layer data…");
+    assert.include(host.textContent, "正在加载图层数据…");
     assert.strictEqual(
       host.querySelector(".palette-modal")?.getAttribute("data-previews-ready"),
       "false",

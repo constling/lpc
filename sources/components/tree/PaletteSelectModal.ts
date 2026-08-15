@@ -333,8 +333,8 @@ export const PaletteSelectModal: m.Component<PaletteSelectModalAttrs> = {
       (error: LoadError) => {
         const message =
           error.kind === "loading" && error.chunk === "palette"
-            ? "Loading palette data…"
-            : "Loading layer data…";
+            ? "正在加载调色板数据…"
+            : "正在加载图层数据…";
         return renderLoadingOverlay(onClose, message);
       },
     );

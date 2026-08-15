@@ -148,7 +148,7 @@ describe("canvas/animation-direction-download.ts", () => {
       const result = extractAnimationDirectionCanvas("walk", "down");
       expect(result.isErr()).to.equal(true);
       if (result.isErr()) {
-        expect(result.error).to.contain("not ready");
+        expect(result.error).to.contain("尚未准备好");
       }
     });
 
@@ -156,7 +156,7 @@ describe("canvas/animation-direction-download.ts", () => {
       const result = extractAnimationDirectionCanvas("hurt", "down");
       expect(result.isErr()).to.equal(true);
       if (result.isErr()) {
-        expect(result.error).to.contain("not available");
+        expect(result.error).to.contain("不提供方向");
       }
     });
 
@@ -164,7 +164,7 @@ describe("canvas/animation-direction-download.ts", () => {
       const result = extractAnimationDirectionCanvas("walk", "down");
       expect(result.isErr()).to.equal(true);
       if (result.isErr()) {
-        expect(result.error).to.contain("no rendered content");
+        expect(result.error).to.contain("没有已渲染内容");
       }
     });
   });

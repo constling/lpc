@@ -596,7 +596,7 @@ describe("utils/zip-helpers.ts", () => {
         window.JSZip = undefined;
         const alertSpy = sinon.stub(window, "alert");
         expect(guardZipExportEnvironment()).to.be.false;
-        expect(alertSpy.firstCall.args[0]).to.equal("JSZip library not loaded");
+        expect(alertSpy.firstCall.args[0]).to.equal("JSZip 库未加载");
         alertSpy.restore();
       });
 

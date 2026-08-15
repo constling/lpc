@@ -66,7 +66,7 @@ describe("LicenseFilters Component", () => {
       ".tree-label .is-size-7",
     ).textContent;
 
-    expect(labelText).to.include(`(${enabledCount}/${totalCount} enabled)`);
+    expect(labelText).to.include(`(已启用 ${enabledCount}/${totalCount})`);
   });
 
   it("should display a warning if there are incompatible items", () => {
@@ -90,7 +90,7 @@ describe("LicenseFilters Component", () => {
     const warning = container.querySelector(".notification.is-warning");
 
     expect(warning).to.not.be.null;
-    expect(warning.textContent).to.include("1 selected item is incompatible");
+    expect(warning.textContent).to.include("1 个已选物品与当前许可设置不兼容");
   });
 
   it("should remove incompatible items when the button is clicked", () => {

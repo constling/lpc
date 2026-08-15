@@ -110,7 +110,7 @@ describe("state/zip.ts issue #382 regression (longsword + full outfit)", () => {
     expect(sortedZipKeys(fakeZip)).to.deep.equal(
       [...issue382ZipPathsSplitAnimations].sort(),
     );
-    expect(alertStub.calledWith("Export complete!")).to.be.true;
+    expect(alertStub.calledWith("导出完成!")).to.be.true;
   });
 
   it("exportSplitItemSheets creates the expected zip paths", async () => {
@@ -118,7 +118,7 @@ describe("state/zip.ts issue #382 regression (longsword + full outfit)", () => {
     expect(sortedZipKeys(fakeZip)).to.deep.equal(
       [...issue382ZipPathsSplitItemSheets].sort(),
     );
-    expect(alertStub.calledWith("Export complete!")).to.be.true;
+    expect(alertStub.calledWith("导出完成!")).to.be.true;
   });
 
   it("exportSplitItemAnimations creates the expected zip paths (custom folders include standard layers)", async () => {
@@ -126,7 +126,7 @@ describe("state/zip.ts issue #382 regression (longsword + full outfit)", () => {
     expect(sortedZipKeys(fakeZip)).to.deep.equal(
       [...issue382ZipPathsSplitItemAnimations].sort(),
     );
-    expect(alertStub.calledWith("Export complete!")).to.be.true;
+    expect(alertStub.calledWith("导出完成!")).to.be.true;
 
     const slashFolder = [...fakeZip.files.keys()].filter((k) =>
       k.startsWith("custom/slash_oversize/"),
@@ -139,7 +139,6 @@ describe("state/zip.ts issue #382 regression (longsword + full outfit)", () => {
     expect(sortedZipKeys(fakeZip)).to.deep.equal(
       [...issue382ZipPathsIndividualFrames].sort(),
     );
-    expect(alertStub.calledWith("Individual frames export complete!")).to.be
-      .true;
+    expect(alertStub.calledWith("单帧导出完成!")).to.be.true;
   });
 });

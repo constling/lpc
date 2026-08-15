@@ -58,6 +58,14 @@ export function isAnimationDirectionAvailable(
   );
 }
 
+/** Chinese direction display names, keyed by LPC direction value. */
+const DIRECTION_LABELS: Record<string, string> = {
+  up: "上",
+  left: "左",
+  down: "下",
+  right: "右",
+};
+
 /** Direction options for the selector, in LPC order (up, left, down, right). */
 export function getAnimationDirectionOptions(
   animationName: string,
@@ -65,7 +73,7 @@ export function getAnimationDirectionOptions(
   const rowCount = getAnimationDirectionRowCount(animationName);
   return DIRECTIONS.map((direction, index) => ({
     value: direction,
-    label: direction.charAt(0).toUpperCase() + direction.slice(1),
+    label: DIRECTION_LABELS[direction] ?? direction,
     available: index < rowCount,
   }));
 }
@@ -107,7 +115,7 @@ export function extractAnimationDirectionCanvas(
   direction: string,
 ): Result<HTMLCanvasElement, string> {
   if (!renderCanvas) {
-    return err("Character canvas is not ready yet.");
+    return err("角色画布尚未准备好。");
   }
 
   const dirIndex = DIRECTIONS.indexOf(direction);
@@ -115,24 +123,20 @@ export function extractAnimationDirectionCanvas(
     dirIndex < 0 ||
     dirIndex >= getAnimationDirectionRowCount(animationName)
   ) {
-    return err(
-      `Direction "${direction}" is not available for animation "${animationName}".`,
-    );
+    return err(`动画 "${animationName}" 不提供方向 "${direction}"。`);
   }
 
   const customDef = customAnimations[animationName];
   if (customDef) {
     const yPos = customAnimYPositions[animationName];
     if (yPos === undefined) {
-      return err(
-        `Custom animation "${animationName}" is not present in the current render.`,
-      );
+      return err(`自定义动画 "${animationName}" 不在当前渲染中。`);
     }
     const frameSize = customDef.frameSize;
     const frameCount = customDef.frames[dirIndex]?.length ?? 0;
     if (frameCount === 0) {
       return err(
-        `Custom animation "${animationName}" has no frames for direction "${direction}".`,
+        `自定义动画 "${animationName}" 在方向 "${direction}" 上没有帧。`,
       );
     }
 
@@ -144,7 +148,7 @@ export function extractAnimationDirectionCanvas(
     });
     return rowResult.mapErr(
       () =>
-        `Custom animation "${animationName}" has no rendered content for direction "${direction}".`,
+        `自定义动画 "${animationName}" 在方向 "${direction}" 上没有已渲染内容。`,
     );
   }
 
@@ -152,7 +156,7 @@ export function extractAnimationDirectionCanvas(
     ANIMATION_CONFIGS as Record<string, AnimationConfigEntry | undefined>
   )[animationName];
   if (!config) {
-    return err(`Unknown animation: "${animationName}".`);
+    return err(`未知动画:"${animationName}"。`);
   }
 
   const srcY = config.row * FRAME_SIZE + dirIndex * FRAME_SIZE;
@@ -164,7 +168,7 @@ export function extractAnimationDirectionCanvas(
     rowImageData = readCtx.getImageData(0, srcY, rowWidth, FRAME_SIZE);
   } catch (e) {
     console.error("Failed to read animation row from canvas:", e);
-    return err("Failed to read the animation row from the canvas.");
+    return err("无法从画布读取动画行。");
   }
 
   const lastFrameColumn = findLastNonEmptyFrameColumn(
@@ -174,7 +178,7 @@ export function extractAnimationDirectionCanvas(
   );
   if (lastFrameColumn < 0) {
     return err(
-      `Animation "${animationName}" has no rendered content for direction "${direction}".`,
+      `动画 "${animationName}" 在方向 "${direction}" 上没有已渲染内容。`,
     );
   }
 
@@ -185,8 +189,7 @@ export function extractAnimationDirectionCanvas(
     height: FRAME_SIZE,
   });
   return rowResult.mapErr(
-    () =>
-      `Animation "${animationName}" has no rendered content for direction "${direction}".`,
+    () => `动画 "${animationName}" 在方向 "${direction}" 上没有已渲染内容。`,
   );
 }
 
@@ -213,6 +216,6 @@ export async function downloadAnimationDirectionPNG(
     return { success: true, message: filename };
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
-    return { success: false, message: `PNG encoding failed: ${msg}` };
+    return { success: false, message: `PNG 编码失败:${msg}` };
   }
 }

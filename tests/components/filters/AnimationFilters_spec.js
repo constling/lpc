@@ -126,6 +126,6 @@ describe("AnimationFilters Component", () => {
     const warning = container.querySelector(".notification.is-warning");
 
     expect(warning).to.not.be.null;
-    expect(warning.textContent).to.include("1 selected item is incompatible");
+    expect(warning.textContent).to.include("1 个已选物品与当前动画设置不兼容");
   });
 });

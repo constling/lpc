@@ -389,7 +389,7 @@ describe("state/zip.ts", () => {
       );
 
       expect(fakeZip.files.get(`items/${expectedFileName}`)).to.exist;
-      expect(alertStub.calledWith("Export complete!")).to.be.true;
+      expect(alertStub.calledWith("导出完成!")).to.be.true;
     });
 
     it("includes character.json and credits credits.txt/credits.csv but not credits/metadata.json", async () => {
@@ -456,9 +456,7 @@ describe("state/zip.ts", () => {
       expect(alertStub.called).to.be.true;
       const issueAlert = alertStub
         .getCalls()
-        .find((c) =>
-          String(c.args[0]).includes("Export completed with some issues"),
-        );
+        .find((c) => String(c.args[0]).includes("导出完成,但存在一些问题"));
       expect(issueAlert, "partial failure alert").to.exist;
       expect(String(issueAlert.args[0])).to.include(secondFileName);
     });
@@ -589,7 +587,7 @@ describe("state/zip.ts", () => {
         expect(renderStub.callCount).to.equal(allLayers.length);
         expect(addSpy.callCount).to.equal(allLayers.length);
         expect(fakeZip.files.get(`items/${expectedFileName}`)).to.exist;
-        expect(alertStub.calledWith("Export complete!")).to.be.true;
+        expect(alertStub.calledWith("导出完成!")).to.be.true;
       });
     });
   });
@@ -811,7 +809,7 @@ describe("state/zip.ts", () => {
         expectedFileName,
       ]);
       expect(metadata.standardAnimations.failed.walk).to.deep.equal([]);
-      expect(alertStub.calledWith("Export complete!")).to.be.true;
+      expect(alertStub.calledWith("导出完成!")).to.be.true;
     });
 
     it("noExport: does not create standard/<anim>/ trees for animations marked noExport (e.g. watering, 1h_slash)", async () => {
@@ -950,9 +948,7 @@ describe("state/zip.ts", () => {
       expect(alertStub.called).to.be.true;
       const issueAlert = alertStub
         .getCalls()
-        .find((c) =>
-          String(c.args[0]).includes("Export completed with some issues"),
-        );
+        .find((c) => String(c.args[0]).includes("导出完成,但存在一些问题"));
       expect(issueAlert, "partial failure alert").to.exist;
       expect(String(issueAlert.args[0])).to.include(headFileName);
     });
@@ -1274,8 +1270,7 @@ describe("state/zip.ts", () => {
       expect(metadata.structure.standard.exported).to.deep.equal(
         ANIMATIONS.map((a) => a.value),
       );
-      expect(alertStub.calledWith("Individual frames export complete!")).to.be
-        .true;
+      expect(alertStub.calledWith("单帧导出完成!")).to.be.true;
     });
 
     it("records failed standard animations when extractAnimationFromCanvas throws for an animation", async () => {
@@ -1302,9 +1297,7 @@ describe("state/zip.ts", () => {
       );
       const issueAlert = alertStub
         .getCalls()
-        .find((c) =>
-          String(c.args[0]).includes("Export completed with some issues"),
-        );
+        .find((c) => String(c.args[0]).includes("导出完成,但存在一些问题"));
       expect(issueAlert, "partial failure alert").to.exist;
       expect(String(issueAlert.args[0])).to.include("thrust");
     });
